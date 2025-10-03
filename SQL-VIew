@@ -1,0 +1,21 @@
+CREATE OR REPLACE VIEW StudentOverview AS
+SELECT
+    s.student_id,
+    s.student_name,
+    s.student_surname,
+    s.student_Class,
+    c.class_Teacher AS class_teacher_id,
+    t.teacher_name AS class_teacher_name,
+    t.teacher_surname AS class_teacher_surname,
+    tt.time_Subject_name,
+    tt.time_day_of_week,
+    tt.time_time,
+    h.homework_description,
+    j.journal_mark,
+    j.journal_status
+FROM Student s
+JOIN Class c ON s.student_Class = c.class_name
+JOIN Teacher t ON c.class_Teacher = t.teacher_id
+LEFT JOIN Timetable tt ON tt.time_Class = s.student_Class
+LEFT JOIN Homework h ON h.homework_id = tt.time_homework_id
+LEFT JOIN Journal j ON j.journal_Student_id = s.student_id AND j.journal_time_id = tt.time_id;
