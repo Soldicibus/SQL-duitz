@@ -1,0 +1,12 @@
+SELECT 
+    st.student_name,
+    st.student_surname,
+    COUNT(*) AS total_absences
+FROM journal j
+JOIN student st ON j.journal_student_id = st.student_id
+WHERE st.student_class = '5-А'
+  AND j.journal_status IN ('Н', 'Не присутній')
+  AND j.journal_date BETWEEN (CURRENT_DATE - INTERVAL '7 days') AND CURRENT_DATE
+GROUP BY st.student_name, st.student_surname
+HAVING COUNT(*) > 2
+ORDER BY total_absences DESC;

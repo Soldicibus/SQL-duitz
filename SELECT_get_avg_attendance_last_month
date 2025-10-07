@@ -1,0 +1,12 @@
+SELECT 
+    st.student_class,
+    ROUND(
+        AVG(
+            CASE WHEN j.journal_status IN ('П', 'Присутній') THEN 1 ELSE 0 END
+        ) * 100, 2
+    ) AS avg_attendance
+FROM journal j
+JOIN student st ON j.journal_student_id = st.student_id
+WHERE j.journal_date BETWEEN (CURRENT_DATE - INTERVAL '1 month') AND CURRENT_DATE
+GROUP BY st.student_class
+ORDER BY st.student_class;

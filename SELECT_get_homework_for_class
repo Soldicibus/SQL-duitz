@@ -1,0 +1,9 @@
+SELECT 
+    h.homework_id,
+    s.subject_name,
+    h.hw_description,
+    h.hw_duedate
+FROM homework h
+JOIN subject s ON h.hw_subject = s.subject_id
+WHERE h.hw_class = '5-А'
+  AND h.hw_duedate = DATE '2025-09-10' + INTERVAL '1 day';

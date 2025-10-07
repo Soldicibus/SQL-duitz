@@ -1,0 +1,14 @@
+SELECT 
+    st.student_name,
+    st.student_surname,
+    sub.subject_name,
+    j.journal_mark,
+    j.journal_note,
+    j.journal_status
+FROM journal j
+JOIN student st ON j.journal_student_id = st.student_id
+JOIN timetable t ON j.journal_time_id = t.time_id
+JOIN subject sub ON t.time_subject_name = sub.subject_name
+WHERE st.student_class = '5-А'
+  AND j.journal_date = DATE '2025-09-15'
+ORDER BY st.student_surname, st.student_name;

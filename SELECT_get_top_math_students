@@ -1,0 +1,14 @@
+SELECT 
+    st.student_name,
+    st.student_surname,
+    ROUND(AVG(j.journal_mark), 2) AS avg_math_mark
+FROM journal j
+JOIN student st ON j.journal_student_id = st.student_id
+JOIN timetable t ON j.journal_time_id = t.time_id
+JOIN subject s ON t.time_subject_name = s.subject_name
+WHERE st.student_class = '5-А'
+  AND s.subject_name ILIKE 'Математика'
+GROUP BY st.student_name, st.student_surname
+HAVING AVG(j.journal_mark) > 74
+ORDER BY avg_math_mark DESC;
+
